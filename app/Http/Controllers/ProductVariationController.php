@@ -11,6 +11,17 @@ use Illuminate\Http\Request;
 
 class ProductVariationController extends Controller
 {
+    public function index($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+
+        if (!$product) {
+            abort(404); 
+        }
+
+        return view('admin.variations.index', compact('product'));
+    }
+
     public function create($slug)
     {
         $product = Product::where('slug', $slug)->first();
@@ -19,23 +30,24 @@ class ProductVariationController extends Controller
             abort(404); 
         }
 
-        //$attributes = VariationAttribute::all();
         return view('admin.variations.create', compact('product'));
     }
 
-    public function store(Request $request, Product $product)
+    public function store(Request $request)
     {
         $request->validate([
             'price' => 'required|numeric|min:0',
             'attributes' => 'required|array',
-            'attributes.*.attribute_id' => 'required|exists:variation_attributes,id',
-            'attributes.*.value' => 'required|string',
+            // 'attributes.*.attribute_id' => 'required|exists:variation_attributes,id',
+            // 'attributes.*.value' => 'required|string',
         ]);
 
+        $product = Product::find($request->input('product_id'));
+
         $variation = ProductVariation::create([
-            'product_id' => $product->id,
+            'product_id' => $request->input('product_id'),
             'price' => $request->input('price'),
-        ]);
+        ]);        
 
         foreach ($request->input('attributes') as $attribute) {
             VariationAttributeValue::create([
@@ -45,6 +57,6 @@ class ProductVariationController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.products.show', $product)->with('success', 'Variation added successfully');
+        return redirect()->route("admin.variations.index", $product->slug)->with('success', 'Variation added successfully');
     }
 }

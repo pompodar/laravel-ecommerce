@@ -32,6 +32,7 @@ Route::middleware(['admin'])->group(function () {
     Route::post('admin/attributes', [AttributeController::class, 'store'])->name('admin.attributes.store');
 
     Route::get('admin/products/{slug}/variations/create', [ProductVariationController::class, 'create'])->name('admin.variations.create');
+    Route::get('admin/products/{slug}/variations', [ProductVariationController::class, 'index'])->name('admin.variations.index');
     Route::post('admin/products/{slug}/variations', [ProductVariationController::class, 'store'])->name('admin.variations.store');
 
 });

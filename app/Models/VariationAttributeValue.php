@@ -1,10 +1,13 @@
 <?php
 
+namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
 class VariationAttributeValue extends Model
 {
     protected $fillable = [
+        'product_variation_id',
         'attribute_id',
         'value',
     ];
@@ -17,5 +20,10 @@ class VariationAttributeValue extends Model
     public function productVariation()
     {
         return $this->belongsTo(ProductVariation::class);
+    }
+
+    public function attribute()
+    {
+        return $this->belongsTo(Attribute::class);
     }
 }

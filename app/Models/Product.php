@@ -40,7 +40,7 @@ class Product extends Model
 
     public function variations()
     {
-        return $this->hasMany(Variation::class);
+        return $this->hasMany(ProductVariation::class);
     }
 
     public function attributes()

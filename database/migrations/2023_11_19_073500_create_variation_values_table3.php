@@ -4,18 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVariationValuesTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
-        Schema::create('variation_values', function (Blueprint $table) {
+        Schema::create('variation_attribute_values', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('attribute_id');
+            $table->unsignedBigInteger('product_variation_id');
             $table->string('value');
             // Add other value-specific fields
             $table->timestamps();
 
-            $table->foreign('attribute_id')->references('id')->on('variation_attributes')->onDelete('cascade');
+            $table->foreign('product_variation_id')->references('id')->on('product_variations')->onDelete('cascade');
         });
     }
 
@@ -23,4 +24,4 @@ class CreateVariationValuesTable extends Migration
     {
         Schema::dropIfExists('variation_values');
     }
-}
+};
