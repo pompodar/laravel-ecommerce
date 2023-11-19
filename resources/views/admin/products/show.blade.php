@@ -1,13 +1,25 @@
 @extends('layouts.app') {{-- You can adjust the layout based on your application's structure --}}
 
 @section('content')
-    <h1>All Products</h1>
-
 
     <h1>{{ $product->name }}</h1>
-    <p>{{ $product->description }}</p>
+    <p>Description: {{ $product->description }}</p>
     <p>Price: {{ $product->price }}</p>
     <p>Stock: {{ $product->stock }}</p>
+
+    <h2>Variations:</h2>
+    @foreach ($product->variations as $variation)
+        <p>Price: ${{ $variation->price }}</p>
+        <!-- Add other variation details as needed -->
+
+         @if ($variation->attributeValues->isNotEmpty())
+            <ul>
+                @foreach ($variation->attributeValues as $attribute)
+                    <li>{{ $attribute->attribute->name }}: {{ $attribute->value }}</li>
+                @endforeach
+            </ul>
+        @endif
+    @endforeach
 
             <!-- Edit Button -->
             <a href="{{ route('admin.products.edit', ['product' => $product->id]) }}" class="btn btn-primary">Edit</a>

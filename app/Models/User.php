@@ -48,4 +48,9 @@ class User extends Authenticatable
         // Adjust the logic based on how you determine if a user is an administrator
         return $this->role === 'admin';
     }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

@@ -8,6 +8,13 @@ use Illuminate\Support\Str;
 
 class AttributeController extends Controller
 {
+    public function index()
+    {
+        $attributes = Attribute::paginate(1);
+
+        return view('admin.attributes.index', compact('attributes'));
+    }
+
     public function create()
     {
         return view('admin.attributes.create');

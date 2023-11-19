@@ -1,49 +1,43 @@
-@extends('layouts.app') {{-- You can adjust the layout based on your application's structure --}}
+@extends('layouts.app')
 
 @section('content')
     <h1>All Products</h1>
+    <a href="{{ route('admin.products.create') }}">add a product</a>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+    <table border="1">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Stock</th>
+                <th>Price</th>
+                <th>Categories</th>
 
-    @foreach ($products as $product)
-        <div>
-            <a href="{{ route('admin.products.show', ['slug' => $product->slug]) }}">
-                    <h2>{{ $product->name }}</h2>    
-            </a>
-            <p>{{ $product->description }}</p>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($products as $product)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>            
+                        <a href="{{ route('admin.products.show', ['slug' => $product->slug]) }}">
+                            {{ $product->name }}
+                        </a></td>
+                    <td>{{ $product->stock }}</td>    
+                    <td>${{ $product->price }}</td>
+                    <td>
+                        @foreach ($product->categories as $category)
+                            {{ $category->name }}
+                            @if (!$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 
-            <p><strong>Categories:</strong>
-                @foreach ($product->categories as $category)
-                    {{ $category->name }}
-                    @if (!$loop->last)
-                        ,
-                    @endif
-                @endforeach
-            </p>
+    {{ $products->links() }}
 
-            
-            <p><strong>Attributes:</strong>
-                @foreach ($product->attributes as $attribute)
-                    {{ $attribute->name }}
-                    @if (!$loop->last)
-                        ,
-                    @endif
-                @endforeach
-            </p>
-
-            <!-- Edit Button -->
-            <a href="{{ route('admin.products.edit', ['product' => $product->id]) }}" class="btn btn-primary">Edit</a>
-
-            <!-- Delete Button -->
-            <form method="post" action="{{ route('admin.products.destroy', ['product' => $product->id]) }}" style="display: inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
-            </form>
-        </div>
-    @endforeach
 @endsection
