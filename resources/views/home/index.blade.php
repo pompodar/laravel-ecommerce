@@ -1,51 +1,67 @@
 @extends('layouts.app')
 
 @section('content')
+
     <h1>All Products</h1>
 
-            @foreach ($products as $product)
-                <div>
-                    <p>            
-                        <a href="{{ route('admin.products.show', ['slug' => $product->slug]) }}">
-                            {{ $product->name }}
-                        </a>
-                    </p>
-                    <p>{{ $product->stock }}</p>    
-                    <p>${{ $product->price }}</p>
-                    <p>
-                        @foreach ($product->categories as $category)
-                            {{ $category->name }}
-                            @if (!$loop->last)
-                                ,
-                            @endif
-                        @endforeach
+    <hr>
 
-                        @auth
+    <div class="products-grid">
+
+        @foreach ($products as $product)
+
+            <div class="product-card">
+                
+                <a class="product-title" href="{{ route('admin.products.show', ['slug' => $product->slug]) }}">
+                    <h2>
+                        {{ $product->name }}
+                    </h2>
+                </a>
+
+                <hr>
+                
+                <p class="product-stock">{{ $product->stock }}</p>
+
+                <br>
+
+                <p class="product-price">${{ $product->price }}</p>
+                
+                @if(session('success'))
                         
-                            <form action="{{ route('cart.addToCart', $product) }}" method="post">
-                                @csrf
-                                <button type="submit">Add to Cart</button>
-                            </form>
+                    <div class="success">{{ session('success') }}</div>
+                    
+                    <a class="go-to-cart" href="{{ route('cart.viewCart')  }}">go to cart</a>
+                
+                @endif
 
-                        @endauth
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                
+                @auth
+                
+                    <form class="add-to-cart" action="{{ route('cart.addToCart', $product) }}" method="post">
+                        @csrf
+                        <button type="submit">add to cart</button>
+                    </form>
 
-                        @if(session('success'))
-                            <div style="color: green;">{{ session('success') }}</div>
-                            <a href="{{ route('cart.viewCart')  }}">go to cart</a>
-                        @endif
+                @endauth
+                    
+            </div>        
+        @endforeach
 
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                </div>        
-            @endforeach
+    </div>   
+    
+    <div class="pagination">
 
-    {{ $products->links() }}
+        {{ $products->links() }}
+
+    </div>
 
 @endsection
