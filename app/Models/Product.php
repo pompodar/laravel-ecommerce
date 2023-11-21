@@ -20,7 +20,7 @@ class Product extends Model
             'stock' => 'required|integer|min:0',
             'category_id' => 'exists:categories,id',
             'tags' => 'array',
-            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ];
 
         return $rules;
@@ -28,7 +28,12 @@ class Product extends Model
 
     protected $fillable = ['name', 'slug', 'description', 'price', 'stock', 'currency', 'photo_path', 'category_id'];
 
-     public function categories()
+    public function photos()
+    {
+        return $this->hasMany(ProductPhoto::class);
+    }
+
+    public function categories()
     {
         return $this->belongsToMany(Category::class);
     }

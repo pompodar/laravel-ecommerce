@@ -28,7 +28,7 @@ class CartController extends Controller
             ]);
         }
 
-        return redirect()->route('home.index')->with('success', 'Product added to cart successfully');
+        return back()->with('success', 'Product added to cart successfully');
     }
 
     public function updateCart(Request $request, $cartItemId)

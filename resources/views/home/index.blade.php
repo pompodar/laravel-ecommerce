@@ -11,16 +11,28 @@
         @foreach ($products as $product)
 
             <div class="product-card">
+
+                @if($product->photos->isNotEmpty())
+
+                    <div class="product-photo">
+
+                        @foreach($product->photos as $photo)
+                            
+                            <img src="{{ asset('storage/' . $photo->photo) }}" alt="Product Photo">
+                        
+                        @endforeach
+
+                    </div>
+
+                @endif
                 
                 <a class="product-title" href="{{ route('admin.products.show', ['slug' => $product->slug]) }}">
                     <h2>
                         {{ $product->name }}
                     </h2>
                 </a>
-
-                <hr>
                 
-                <p class="product-stock">{{ $product->stock }}</p>
+                <p class="product-desc">{{ $product->description }}</p>
 
                 <br>
 

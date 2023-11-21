@@ -37,7 +37,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'tags' => 'array',
-            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'categories' => 'array',
             'attributes' => 'array',
         ]);
@@ -47,7 +47,7 @@ class ProductController extends Controller
 
         if ($validator->fails()) {
             return redirect()
-                ->route('products.create')
+                ->route('admin.products.create')
                 ->withErrors($validator)
                 ->withInput($request->all());
         }
@@ -83,6 +83,10 @@ class ProductController extends Controller
         if ($request->has('attribute_id')) {
             $product->attribute()->associate($request->input('attribute_id'))->save();
         }
+
+        $product->photos()->create([
+            'photo' => $photoPath,
+        ]);
 
         // Attach categories to the product
         $product->categories()->sync($request->input('categories'));

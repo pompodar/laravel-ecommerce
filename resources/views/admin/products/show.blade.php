@@ -7,6 +7,20 @@
     <p>Price: {{ $product->price }}</p>
     <p>Stock: {{ $product->stock }}</p>
 
+    @if($product->photos->isNotEmpty())
+
+        <div class="product-photo">
+
+            @foreach($product->photos as $photo)
+                
+                <img src="{{ asset('storage/' . $photo->photo) }}" alt="Product Photo">
+            
+            @endforeach
+
+        </div>
+
+    @endif
+
     <h2>Variations:</h2>
     @foreach ($product->variations as $variation)
         <p>Price: ${{ $variation->price }}</p>

@@ -526,19 +526,30 @@ header nav ul {
 
 main {
     padding: 20rem 60rem;
+    background-color: var(--secondary-color);
 }
 
 .products-grid {
     display: flex;
     padding: 40rem 0;
     flex-wrap: wrap;
+    gap: 40rem;
+    flex-wrap: wrap;
 }
 
 .product-card {
+    display: flex;
+    flex-direction: column;
     width: 400rem;
     background-color: var(--secondary-color);
     border-radius: 8rem;
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.product-photo {
+    height: 400rem;
+    border-top-left-radius: 8rem;
+    border-top-right-radius: 8rem;
 }
 
 .product-title {
@@ -546,7 +557,6 @@ main {
     display: inline-block;
     font-weight: 700;
     width: 100%;
-    text-align: center;
     transition: all 0.5s;
 }
 
@@ -560,7 +570,7 @@ hr {
     margin: 0 auto;
 }
 
-.product-stock {
+.product-desc {
     padding: 6rem 20rem;
     display: inline-block;
 }
@@ -568,6 +578,7 @@ hr {
 .product-price {
     padding: 6rem 20rem;
     display: inline-block;
+    margin-top: auto;
 }
 
 .add-to-cart {
