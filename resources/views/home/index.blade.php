@@ -4,8 +4,6 @@
 
     <h1>All Products</h1>
 
-    <hr>
-
     <div class="products-grid">
 
         @foreach ($products as $product)
@@ -77,3 +75,19 @@
     </div>
 
 @endsection
+
+<script>
+    // Store scroll position before leaving the page
+    window.addEventListener('beforeunload', function() {
+        localStorage.setItem('scrollPosition', window.scrollY);
+    });
+
+    // Restore scroll position on page load
+    window.addEventListener('load', function() {
+        var scrollPosition = localStorage.getItem('scrollPosition');
+        if (scrollPosition !== null) {
+            window.scrollTo(0, scrollPosition);
+            localStorage.removeItem('scrollPosition');
+        }
+    });
+</script>

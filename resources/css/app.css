@@ -511,22 +511,58 @@ body {
 }
 
 header {
-    padding: 20rem 60rem;
+    padding: 34rem 60rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: 900;
+    color: black;
+}
+
+.logo {
+    font-size: 36rem;
+    transition: all 0.5s;
+}
+
+.logo:hover {
+    color: var(--bg-color);
+}
+
+.logo svg {
+    display: flex;
+    align-items: center;
+}
+
+.search-sign {
+    margin-left: 300rem;
 }
 
 header nav ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20rem;
+    gap: 60rem;
+}
+
+i {
+    font-size: 40rem;
+    color: var(--secondary-bg);
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+i:hover {
+    color: var(--bg-color);
 }
 
 main {
     padding: 20rem 60rem;
     background-color: var(--secondary-color);
+        box-shadow: 0px 0px 5rem 15rem rgba(0, 0, 0, 0.75);
+}
+
+h1 {
+    display: none;
 }
 
 .products-grid {
