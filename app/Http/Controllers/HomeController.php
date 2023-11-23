@@ -19,4 +19,11 @@ class HomeController extends Controller
         return view('home.index', compact('products'));
     }
 
+    public function show($slug)
+    {
+        $product = Product::where('slug', $slug)->firstOrFail();
+        
+        return view('home.products.show', compact('product'));
+    }
+
 }

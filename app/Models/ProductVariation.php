@@ -15,4 +15,9 @@ class ProductVariation extends Model
     {
         return $this->hasMany(VariationAttributeValue::class);
     }
+
+    public function photos()
+    {
+        return $this->hasMany(ProductVariationPhoto::class);
+    }
 }

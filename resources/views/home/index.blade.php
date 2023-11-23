@@ -24,7 +24,7 @@
 
                 @endif
                 
-                <a class="product-title" href="{{ route('admin.products.show', ['slug' => $product->slug]) }}">
+                <a class="product-title" href="{{ route('home.products.show', ['slug' => $product->slug]) }}">
                     <h2>
                         {{ $product->name }}
                     </h2>

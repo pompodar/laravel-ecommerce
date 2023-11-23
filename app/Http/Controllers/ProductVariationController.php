@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariation;
-use App\Models\VariationAttribute;
 use App\Models\VariationAttributeValue;
 use Illuminate\Http\Request;
 
@@ -38,6 +37,7 @@ class ProductVariationController extends Controller
         $request->validate([
             'price' => 'required|numeric|min:0',
             'attributes' => 'required|array',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             // 'attributes.*.attribute_id' => 'required|exists:variation_attributes,id',
             // 'attributes.*.value' => 'required|string',
         ]);
@@ -49,6 +49,13 @@ class ProductVariationController extends Controller
             'price' => $request->input('price'),
         ]);        
 
+        // Upload and store variation photo
+        $photoPath = null;
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('admin.variation_photos', 'public');
+        }
+
+
         foreach ($request->input('attributes') as $attribute) {
             VariationAttributeValue::create([
                 'product_variation_id' => $variation->id,
@@ -57,6 +64,9 @@ class ProductVariationController extends Controller
             ]);
         }
 
+        if ($request->hasFile('photo')) {
+            $variation->photos()->create(['photo' => $photoPath]);
+        }
         return redirect()->route("admin.variations.index", $product->slug)->with('success', 'Variation added successfully');
     }
 }

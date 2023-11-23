@@ -18,7 +18,7 @@
     @endif
 
 
-    <form action="{{ route('admin.variations.store', $product) }}" method="post">
+    <form action="{{ route('admin.variations.store', $product) }}" method="post" enctype="multipart/form-data">
         @csrf
 
         <label for="price">Price:</label>
@@ -32,6 +32,14 @@
             <input type="hidden" name="attributes[{{ $attribute->id }}][attribute_id]" value="{{ $attribute->id }}">
             <br>
         @endforeach
+
+        <div class="mb-3">
+                
+            <label for="photo" class="form-label">Variation Photo</label>
+        
+            <input type="file" class="form-control" id="photo" name="photo">
+        
+        </div>
 
         <button type="submit">Add Variation</button>
     </form>

@@ -21,6 +21,9 @@
 
     @endif
 
+    <a href="{{ route('admin.variations.create', ['slug' => $product->slug]) }}" class="btn btn-primary">Add Variation</a>
+
+
     <h2>Variations:</h2>
     @foreach ($product->variations as $variation)
         <p>Price: ${{ $variation->price }}</p>
