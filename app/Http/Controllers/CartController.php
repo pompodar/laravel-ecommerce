@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\ProductVariation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,6 +13,15 @@ class CartController extends Controller
     public function addToCart(Request $request, Product $product)
     {
         $user = Auth::user();
+
+        $variations = ProductVariation::where('product_id', $product->id)->get();
+
+        $hasVariations = $variations->isNotEmpty();
+
+        if ($hasVariations) {
+            $variationId = $request->input('variation_id');
+            $product_variation = ProductVariation::find($variationId);
+        }
 
         $cartItem = Cart::where('user_id', $user->id)
             ->where('product_id', $product->id)
@@ -25,6 +35,11 @@ class CartController extends Controller
             $user->cart()->create([
                 'product_id' => $product->id,
                 'quantity' => 1,
+                'variation' => $product_variation,
+                'attributes' => [
+                    'variation_id' => $variationId,
+                    'variation' => $product_variation->getAttributesString(),
+                ],
             ]);
         }
 

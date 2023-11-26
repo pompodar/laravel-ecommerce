@@ -20,4 +20,11 @@ class ProductVariation extends Model
     {
         return $this->hasMany(ProductVariationPhoto::class);
     }
+
+    public function getAttributesString()
+    {
+        return $this->attributeValues->map(function ($attributeValue) {
+            return $attributeValue->attribute->name . ': ' . $attributeValue->value;
+        })->implode(', ');
+    }
 }

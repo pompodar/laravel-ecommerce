@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,23 +32,36 @@ class CheckoutController extends Controller
         // Retrieve cart items
         $cartItems = $user->cart;
 
-        // Calculate total price
+        // Calculate total price, considering variation prices
         $totalPrice = $cartItems->sum(function ($cartItem) {
-            return $cartItem->product->price * $cartItem->quantity;
+            return $cartItem->variation ? $cartItem->variation->price * $cartItem->quantity : $cartItem->product->price * $cartItem->quantity;
         });
 
         // Create an order based on cart items
         $order = Order::create([
             'user_id' => $user->id,
-            // Add other order details as needed
+            'total_price' => $totalPrice, // Assuming you have a 'total_price' column in your orders table
         ]);
 
         // Move cart items to order_items table
         foreach ($cartItems as $cartItem) {
-            $order->items()->create([
-                'product_id' => $cartItem->product_id,
-                'quantity' => $cartItem->quantity,
-            ]);
+            // Check if the cart item has a variation
+            if ($cartItem->variation) {
+                $orderItem = OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $cartItem->product_id,
+                    'quantity' => $cartItem->quantity,
+                    'variation_id' => $cartItem->variation->id,
+                    'price' => $cartItem->variation->price, // Assuming you have a 'price' column in your order_items table
+                ]);
+            } else {
+                $orderItem = OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $cartItem->product_id,
+                    'quantity' => $cartItem->quantity,
+                    'price' => $cartItem->product->price, // Assuming you have a 'price' column in your order_items table
+                ]);
+            }
         }
 
         // Clear the user's cart

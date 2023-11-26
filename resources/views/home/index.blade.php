@@ -16,7 +16,7 @@
 
                         @foreach($product->photos as $photo)
                             
-                            <img src="{{ asset('storage/' . $photo->photo) }}" alt="Product Photo">
+                            <img src="{{ '/' . $photo->photo }}" alt="Product Photo">
                         
                         @endforeach
 

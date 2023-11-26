@@ -12,9 +12,10 @@
 
         <script src="https://kit.fontawesome.com/9f3a632633.js" crossorigin="anonymous"></script>
 
-        @routes
+        <link rel="stylesheet" href="./../app.css">
+        <!-- @routes
         @viteReactRefresh
-        @vite(['resources/js/app.jsx', "resources/js/Pages/Welcome.jsx"])
+        @vite(['resources/js/app.jsx']) -->
     
     </head>
     
@@ -62,8 +63,51 @@
                     
                             </li>
                 
-                         @endif
-            
+                        @endif
+
+                        @if(!auth()->check())
+
+                            <li>
+                                
+                                <a href="/login">
+                                   
+                                    <i class="fa-solid fa-right-to-bracket"></i>
+                                
+                                </a>
+                    
+                            </li>
+
+                        @else
+
+                        
+                            <li>
+                                
+                                <a href="/dashboard">
+                                   
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                </a>
+                    
+                            </li>
+
+                            <li>
+
+                                <form action="{{ route('logout') }}" method="post">
+                                    
+                                    @csrf
+                                    
+                                    <button type="submit">
+
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                    
+                                    </button>
+                                
+                                </form>                               
+                                                    
+                            </li>
+                                    
+                        @endif
+
                     </ul>
                 
                 </nav>

@@ -12,7 +12,7 @@
 
                     @foreach($product->photos as $photo)
                         
-                        <img src="{{ asset('storage/' . $photo->photo) }}" alt="Product Photo">
+                        <img src="{{ '/' . $photo->photo }}" alt="Product Photo">
                     
                     @endforeach
 
@@ -31,54 +31,81 @@
             <br>
 
             <p class="product-price">${{ $product->price }}</p>
-            
-            @if(session('success'))
-                    
-                <div class="success">{{ session('success') }}</div>
-                
-                <a class="go-to-cart" href="{{ route('cart.viewCart')  }}">go to cart</a>
-            
-            @endif
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
                 
         </div> 
 
-        <div class="product-variations">
+        <div class="product-variations__form">
             
-                <form class="add-to-cart" action="{{ route('cart.addToCart', $product) }}" method="post">
+                <form class="add-to-cart__form" action="{{ route('cart.addToCart', $product) }}" method="post">
                     @csrf
+
+                    <div class="product-variations">
+                    
+                        @foreach ($product->variations as $variation)
+
+                            <div class="product-variation">
+
+                                <div class="product-variations__photo">
+                                    @foreach ($variation->photos as $photo)
+                                        <div class="col-md-3">
+                                            <img src="{{ 'storage/' . $photo->photo }}" alt="Variation Photo" class="img-fluid">
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <p class="product-variation__price">${{ $variation->price }}</p>
+
+                                @if ($variation->attributeValues->isNotEmpty())
+                                    <ul class="product-variation__attributes">
+                                        @foreach ($variation->attributeValues as $attribute)
+                                            
+                                            <input class="form-check-input" type="radio" name="variation_id" id="variation_{{ $variation->id }}" value="{{ $variation->id }}" required>
+                                            
+                                            <label class="form-check-label" for="variation_{{ $variation->id }}">
+                                            
+                                                {{ $attribute->attribute->name }}
+                                                
+                                                {{ $attribute->value }}
+                                            
+                                            </label>    
+                                            
+                                            <!-- <li>{{ $attribute->attribute->name }}: {{ $attribute->value }}</li> -->
+                                        
+                                        @endforeach
+                                    </ul>
+                                @endif
+    
+                            </div>    
+                    
+                        @endforeach
+
+                    </div>    
                     
                     @auth
 
-                        <button type="submit">add to cart</button>
+                        @if(session('success'))
+                    
+                            <div class="success">{{ session('success') }}</div>
+                            
+                            <a class="go-to-cart" href="{{ route('cart.viewCart')  }}">go to cart</a>
+                        
+                        @endif
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <button class="add-to-cart" type="submit">add to cart</button>
 
                     @endauth
 
                 </form>
-            
-            <h3>Variations</h3>
-                    
-            @foreach ($product->variations as $variation)
-                <p>Price: ${{ $variation->price }}</p>
-
-                @if ($variation->attributeValues->isNotEmpty())
-                    <ul>
-                        @foreach ($variation->attributeValues as $attribute)
-                            <li>{{ $attribute->attribute->name }}: {{ $attribute->value }}</li>
-                        @endforeach
-                    </ul>
-                @endif
-    
-            @endforeach
         
         </div>
 
