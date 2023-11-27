@@ -19,7 +19,7 @@ class CheckoutController extends Controller
 
         // Calculate total price
         $totalPrice = $cartItems->sum(function ($cartItem) {
-            return $cartItem->product->price * $cartItem->quantity;
+            return $cartItem->variation ? $cartItem->variation->price * $cartItem->quantity : $cartItem->product->price * $cartItem->quantity;
         });
 
         return view('checkout.index', compact('cartItems', 'totalPrice'));

@@ -18,28 +18,33 @@ class CartController extends Controller
 
         $hasVariations = $variations->isNotEmpty();
 
-        if ($hasVariations) {
-            $variationId = $request->input('variation_id');
-            $product_variation = ProductVariation::find($variationId);
-        }
+        $hasVariations ? $variation_id = $request->input('variation_id') : $variation_id = null;
+        
+        // $product_variation = ProductVariation::find($variationId);
 
         $cartItem = Cart::where('user_id', $user->id)
             ->where('product_id', $product->id)
             ->first();
 
         if ($cartItem) {
-            // Update quantity if the product is already in the cart
-            $cartItem->increment('quantity');
+            // Check if the existing cart item has the same variation_id
+            if ($cartItem->variation_id == $variation_id) {
+                // Update quantity if the product with the same variation is already in the cart
+                $cartItem->increment('quantity');
+            } else {
+                // Add a new item to the cart with a different variation_id
+                $user->cart()->create([
+                    'product_id' => $product->id,
+                    'quantity' => 1,
+                    'variation_id' => $variation_id,
+                ]);
+            }
         } else {
-            // Add a new item to the cart
+            // Add a new item to the cart if it doesn't exist
             $user->cart()->create([
                 'product_id' => $product->id,
                 'quantity' => 1,
-                'variation' => $product_variation,
-                'attributes' => [
-                    'variation_id' => $variationId,
-                    'variation' => $product_variation->getAttributesString(),
-                ],
+                'variation_id' => $variation_id,
             ]);
         }
 
@@ -76,7 +81,7 @@ class CartController extends Controller
     {
         $user = Auth::user();
         
-        $cartItems = $user->cart()->with('product')->get();
+        $cartItems = Cart::with('product', 'variation')->where('user_id', $user->id)->get();
 
         return view('cart.index', compact('cartItems'));
     }

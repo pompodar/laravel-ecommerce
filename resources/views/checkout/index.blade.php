@@ -10,6 +10,19 @@
         <ul>
             @foreach($cartItems as $cartItem)
                 <li>{{ $cartItem->product->name }} - Quantity: {{ $cartItem->quantity }}</li>
+                <li>
+
+                    @if ($cartItem->variation)
+                        
+                        <p>${{ $cartItem->variation->price }}</p>
+                    
+                    @else
+                    
+                        <p> {{ $cartItem->product->price }} </p>
+
+                    @endif
+
+                </li>
             @endforeach
         </ul>
 

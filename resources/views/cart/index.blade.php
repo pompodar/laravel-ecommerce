@@ -23,8 +23,15 @@
                     <button type="submit">Change Quantity</button>
                 </form>
 
+                @if ($cartItem->variation)
+                    
+                    <p>${{ $cartItem->variation->price }}</p>
+                
+                @else
                 
                     <p> {{ $cartItem->product->price }} </p>
+
+                @endif
     
             @endforeach
 

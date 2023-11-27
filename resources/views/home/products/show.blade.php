@@ -48,7 +48,7 @@
                                 <div class="product-variations__photo">
                                     @foreach ($variation->photos as $photo)
                                         <div class="col-md-3">
-                                            <img src="{{ 'storage/' . $photo->photo }}" alt="Variation Photo" class="img-fluid">
+                                            <img src="{{ '/' . $photo->photo }}" alt="Product Photo">
                                         </div>
                                     @endforeach
                                 </div>
