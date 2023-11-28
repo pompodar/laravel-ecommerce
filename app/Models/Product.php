@@ -26,7 +26,7 @@ class Product extends Model
         return $rules;
     }
 
-    protected $fillable = ['name', 'slug', 'description', 'price', 'stock', 'currency', 'photo_path', 'category_id'];
+    protected $fillable = ['name', 'slug', 'description', 'price', 'stock', 'currency', 'photo_path', 'category_id', 'image'];
 
     public function photos()
     {

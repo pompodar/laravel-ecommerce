@@ -55,7 +55,7 @@ class ProductController extends Controller
         // Handle photo upload if provided
         $photoPath = null;
         if ($request->hasFile('photo')) {
-            $photoPath = $request->file('photo')->store('admin.photos', 'public');
+            $photoPath = $request->file('photo')->store('product_photos', 'public');
         }
 
         // Generate slug using Str::slug
@@ -84,9 +84,9 @@ class ProductController extends Controller
             $product->attribute()->associate($request->input('attribute_id'))->save();
         }
 
-        $product->photos()->create([
-            'photo' => $photoPath,
-        ]);
+        // $product->photos()->create([
+        //     'photo' => $photoPath,
+        // ]);
 
         // Attach categories to the product
         $product->categories()->sync($request->input('categories'));
@@ -97,21 +97,64 @@ class ProductController extends Controller
         return redirect()->route('admin.products.create')->with('success', 'Product created successfully');
     }
 
+    public function edit(Product $product)
+    {
+        $categories = Category::all();
+        $selectedCategories = $product->categories->pluck('id')->toArray();
+
+        $attributes = Attribute::all();
+        $selectedAttributes = $product->attributes->pluck('id')->toArray();
+
+        return view('admin.products.edit', compact('product', 'categories', 'selectedCategories', 'attributes', 'selectedAttributes'));
+    }
+
+    public function update(Request $request, Product $product)
+    {
+        // Validation rules for updating the product
+        $request->validate([
+            'name' => 'required|string|max:255|unique:products,name,' . $product->id,
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'categories' => 'array',
+            'categories.*' => 'exists:categories,id',
+            'attributes' => 'array',
+            'attributes.*' => 'exists:attributes,id',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+        ]);
+
+        // Handle photo upload if provided
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('product_photos', 'public');
+            $product->update(['image' => $photoPath]);
+        }
+
+        $slug = Str::slug($request->input('name'));
+
+        // Update the product details
+        $product->update([
+            'name' => $request->input('name'),
+            'slug' => $slug,
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'stock' => $request->input('stock'),
+        ]);
+
+        // Sync categories
+        $product->categories()->sync($request->input('categories'));
+
+        // Sync attributes
+        $product->attributes()->sync($request->input('attributes'));
+
+        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully');
+    }
+
+
     public function show($slug)
     {
         $product = Product::where('slug', $slug)->firstOrFail();
         
         return view('admin.products.show', compact('product'));
-    }
-
-    public function edit(Product $product)
-    {
-        return view('admin.products.edit', compact('product'));
-    }
-
-    public function update(Request $request, Product $product)
-    {
-        // Update logic here
     }
 
     public function destroy(Product $product)

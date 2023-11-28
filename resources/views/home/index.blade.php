@@ -10,15 +10,17 @@
 
             <div class="product-card">
 
-                @if($product->photos->isNotEmpty())
+                @if(!$product->photos->isNotEmpty())
 
                     <div class="product-photo">
 
-                        @foreach($product->photos as $photo)
+                        <!-- @foreach($product->photos as $photo)
                             
                             <img src="{{ '/' . $photo->photo }}" alt="Product Photo">
                         
-                        @endforeach
+                        @endforeach -->
+
+                        <img src="{{ '/' . $product->image }}" alt="Product Photo">
 
                     </div>
 
@@ -55,11 +57,22 @@
                 @endif
                 
                 @auth
+
+                    @if($product->variations->isNotEmpty())
                 
-                    <form class="add-to-cart" action="{{ route('cart.addToCart', $product) }}" method="post">
+                    <form class="add-to-cart" action="{{ route('home.show', $product) }}" method="post">
                         @csrf
                         <button type="submit">add to cart</button>
                     </form>
+
+                    @else
+
+                        <form class="add-to-cart" action="{{ route('cart.addToCart', $product) }}" method="post">
+                            @csrf
+                            <button type="submit">add to cart</button>
+                        </form>
+
+                    @endif
 
                 @endauth
                     
