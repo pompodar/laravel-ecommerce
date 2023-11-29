@@ -15,8 +15,8 @@ use App\Http\Controllers\CheckoutController;
 Route::middleware(['admin'])->group(function () {
     
     Route::get('/admin', function () {
-    return view('admin.index');
-    });
+        return view('admin.index');
+    })->name('admin.index');
     
 
     Route::get('admin/products/create', [ProductController::class, 'create'])->name('admin.products.create');

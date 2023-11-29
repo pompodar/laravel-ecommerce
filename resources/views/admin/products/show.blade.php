@@ -1,50 +1,106 @@
-@extends('layouts.app') {{-- You can adjust the layout based on your application's structure --}}
+@extends('layouts.dashboard') 
 
 @section('content')
 
-    <h1>{{ $product->name }}</h1>
-    <p>Description: {{ $product->description }}</p>
-    <p>Price: {{ $product->price }}</p>
-    <p>Stock: {{ $product->stock }}</p>
+    <div class="content-wrapper">
+            <!-- Content -->
 
-    @if($product->photos->isNotEmpty())
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="breadcrumbs mb-2">
+                <span class="text-muted fw-light"><a href="{{ route('admin.index')}}">Dashboard</a> / </span>
+                <span class="text-muted fw-light"><a href="{{ route('admin.products.index')}}">Products</a> / </span>
+            </h4>
 
-        <div class="product-photo">
+              <!-- Examples -->
+              <div class="row mb-5">
+                <div class="col-md-6 col-lg-4 mb-3">
+                  <div class="card h-100">
+                    <img class="card-img-top" src="{{ '/' . $product->image }}" alt="Card image cap" />
+                  </div>
+                </div>
 
-            @foreach($product->photos as $photo)
-                
-                <img src="{{ '/' . $photo->photo }}" alt="Product Photo">
-            
-            @endforeach
+                <div class="col-md-6 col-lg-4 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ $product->name }}</h5>
+                      
+                      <p class="card-text">
+                        
+                        {{ $product->description }}                      
+                      
+                      </p>
 
+                      <p class="card-text">
+                        
+                        {{ $product->price }}                      
+                      
+                      </p>
+
+                      <p class="card-text">
+                        
+                        Stock: {{ $product->stock }}                      
+                      
+                      </p>
+
+                        <span class="card-text">Categories:</span>
+
+                      <span class="card-text">
+                        
+                        @foreach ($product->categories as $category)
+                            {{ $category->name }}
+                            @if (!$loop->last)
+                                ,
+                            @endif
+                        @endforeach                      
+                      
+                      </span>
+
+                    <br>
+
+                      <span class="card-text">Attributes:</span>
+
+                      <span class="card-text">
+                        
+                        @foreach ($product->attributes as $attribute)
+                            {{ $attribute->name }}
+                            @if (!$loop->last)
+                                ,
+                            @endif
+                        @endforeach                      
+                      
+                      </span>
+
+                      <br>
+
+                      <span class="card-text">Variations:</span>
+
+                      <span class="card-text">
+                        
+                        {{ count($product->variations) }}                     
+                      
+                      </span>
+                    
+                      <br>
+
+                      <div class="actions">
+
+                        <a href="{{ route('admin.products.edit', ['product' => $product->id]) }}" class="btn btn-outline-primary"><i class="bx bx-edit-alt me-1"></i>Edit</a>
+
+                        <!-- Delete Button -->
+                        <form method="post" action="{{ route('admin.products.destroy', ['product' => $product->id]) }}" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-primary" onclick="return confirm('Are you sure you want to delete this product?')"><i class="bx bx-trash me-1"></i>Delete</button>
+                        </form>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+            </div>
         </div>
+    </div>
 
-    @endif
-
-    <a href="{{ route('admin.variations.create', ['slug' => $product->slug]) }}" class="btn btn-primary">Add Variation</a>
-
-
-    <h2>Variations:</h2>
-    @foreach ($product->variations as $variation)
-        <p>Price: ${{ $variation->price }}</p>
-        <!-- Add other variation details as needed -->
-
-         @if ($variation->attributeValues->isNotEmpty())
-            <ul>
-                @foreach ($variation->attributeValues as $attribute)
-                    <li>{{ $attribute->attribute->name }}: {{ $attribute->value }}</li>
-                @endforeach
-            </ul>
-        @endif
-    @endforeach
-
-            <!-- Edit Button -->
-            <a href="{{ route('admin.products.edit', ['product' => $product->id]) }}" class="btn btn-primary">Edit</a>
-
-            <!-- Delete Button -->
-            <form method="post" action="{{ route('admin.products.destroy', ['product' => $product->id]) }}" style="display: inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
-            </form>
 @endsection

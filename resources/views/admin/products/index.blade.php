@@ -31,7 +31,11 @@
                                     
                                     <img src="{{ '/' . $product->image }}" class="product-image bx bx-sm me-3">
                                     
-                                    <span class="fw-medium">{{$product->name}}</span>
+                                    <a href="{{ route('admin.products.show', ['slug' => $product->slug]) }}">
+
+                                        <span class="fw-medium">{{$product->name}}</span>
+                                    
+                                    </a>
                                 
                                 </td>
                                 <td>{{$product->price}}</td>
