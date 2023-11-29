@@ -7,7 +7,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="py-3 mb-4"><span class="text-muted fw-light">Products /</span></h4>
+              <h4 class="breadcrumbs mb-3"><span class="text-muted fw-light"><a href="{{ route('admin.index') }}">Dashboard</a> /</span></h4>
 
               <!-- Basic Bootstrap Table -->
               <div class="card">
@@ -64,12 +64,16 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="javascript:void(0);"
-                                        ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                                    >
-                                    <a class="dropdown-item" href="javascript:void(0);"
-                                        ><i class="bx bx-trash me-1"></i> Delete</a
-                                    >
+
+                                    <a class="dropdown-item" href="{{ route('admin.products.edit', ['product' => $product->id]) }}"><i class="bx bx-edit-alt me-1"></i>Edit</a>
+
+                                    <!-- Delete Button -->
+                                    <form method="post" action="{{ route('admin.products.destroy', ['product' => $product->id]) }}" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="dropdown-item" type="submit" onclick="return confirm('Are you sure you want to delete this product?')"><i class="bx bx-trash me-1"></i>Delete</button>
+                                    </form>
+                        
                                     </div>
                                 </div>
                                 </td>

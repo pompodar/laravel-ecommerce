@@ -6,10 +6,10 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="breadcrumbs mb-2">
+              <h4 class="breadcrumbs mb-3">
                 <span class="text-muted fw-light"><a href="{{ route('admin.index')}}">Dashboard</a> / </span>
                 <span class="text-muted fw-light"><a href="{{ route('admin.products.index')}}">Products</a> / </span>
-            </h4>
+              </h4>
 
               <!-- Examples -->
               <div class="row mb-5">
