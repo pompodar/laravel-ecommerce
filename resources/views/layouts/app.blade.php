@@ -24,7 +24,7 @@
         <div class="wrapper">
            
             <header>
-
+l
                 <a class="logo" href="/">
 
                     <svg class="icon-logo" width="50px" height="50px" viewBox="0 0 42 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
