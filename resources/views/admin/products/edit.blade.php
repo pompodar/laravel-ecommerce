@@ -1,47 +1,75 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
-    <h1>Edit Product</h1>
 
-    <form action="{{ route('admin.products.update', $product) }}" method="post" enctype="multipart/form-data">
-        @csrf
-        @method('put')
+    <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
 
-        <label for="name">Name:</label>
-        <input type="text" name="name" value="{{ $product->name }}" required>
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="py-3 mb-4"><span class="text-muted fw-light">Forms/</span> Vertical Layouts</h4>
 
-        <label for="description">Description:</label>
-        <textarea name="description" required>{{ $product->description }}</textarea>
+              <!-- Basic Layout -->
+              <div class="row">
 
-        <label for="price">Price:</label>
-        <input type="number" name="price" value="{{ $product->price }}" required>
+                <div class="col-xl">
+                  <div class="card mb-4">
 
-        <label for="stock">Stock:</label>
-        <input type="number" name="stock" value="{{ $product->stock }}" required>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h5 class="mb-0">Basic Layout</h5>
+                      <small class="text-muted float-end">Default label</small>
+                    </div>
 
-        <label for="categories">Categories:</label>
-        <select name="categories[]" multiple>
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}" {{ in_array($category->id, $selectedCategories) ? 'selected' : '' }}>
-                    {{ $category->name }}
-                </option>
-            @endforeach
-        </select>
+                    <div class="card-body">
+                      <form>
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-fullname">Name</label>
+                          <input name="name" type="text" value="{{ $product->name }}" class="form-control" id="basic-default-fullname" placeholder="" />
+                        </div>
 
-        <label for="attributes">Attributes:</label>
-        <select name="attributes[]" multiple>
-            @foreach ($attributes as $attribute)
-                <option value="{{ $attribute->id }}" {{ in_array($attribute->id, $selectedAttributes) ? 'selected' : '' }}>
-                    {{ $attribute->name }}
-                </option>
-            @endforeach
-        </select>
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-message">Description</label>
+                          <textarea
+                            name="description"
+                            id="basic-default-message"
+                            class="form-control"
+                            placeholder="">{{ $product->description }}
+                        </textarea>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-company">Price</label>
+                          <input type="nimber" value="{{ $product->price }}" class="form-control" id="basic-default-company" placeholder="ACME Inc." />
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-email">Email</label>
+                          <div class="input-group input-group-merge">
+                            <input
+                              type="text"
+                              id="basic-default-email"
+                              class="form-control"
+                              placeholder="john.doe"
+                              aria-label="john.doe"
+                              aria-describedby="basic-default-email2" />
+                            <span class="input-group-text" id="basic-default-email2">@example.com</span>
+                          </div>
+                          <div class="form-text">You can use letters, numbers & periods</div>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-phone">Phone No</label>
+                          <input
+                            type="text"
+                            id="basic-default-phone"
+                            class="form-control phone-mask"
+                            placeholder="658 799 8941" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                      </form>
+                    </div>
 
-        <label for="photo">Photo:</label>
-        <input type="file" name="photo">
-
-        <!-- Add fields for multiple attributes if needed -->
-
-        <button type="submit">Update Product</button>
-    </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                
 @endsection
