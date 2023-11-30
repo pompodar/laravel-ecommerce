@@ -53,6 +53,7 @@ Route::get('/products/{slug}', [HomeController::class, 'show'])->name('home.prod
 
 Route::post('/cart/add-to-cart/{product}', [CartController::class, 'addToCart'])->name('cart.addToCart')->middleware('auth');
 Route::patch('/cart/update-cart/{cartItemId}', [CartController::class, 'updateCart'])->name('cart.updateCart')->middleware('auth');
+Route::delete('/cart/remove/{cartItemId}', [CartController::class, 'removeFromCart'])->name('cart.removeFromCart')->middleware('auth');
 Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.viewCart')->middleware('auth');
 
 

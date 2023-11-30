@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="checkout__input__checkbox">
+                            <!-- <div class="checkout__input__checkbox">
                                 <label for="acc">
                                     Create an account?
                                     <input type="checkbox" id="acc">
@@ -96,7 +96,7 @@
                             <div class="checkout__input">
                                 <p>Account Password<span>*</span></p>
                                 <input type="text">
-                            </div>
+                            </div> -->
                             <div class="checkout__input__checkbox">
                                 <label for="diff-acc">
                                     Ship to a different address?
@@ -115,9 +115,25 @@
                                 <h4>Your Order</h4>
                                 <div class="checkout__order__products">Products <span>Total</span></div>
                                 <ul>
-                                    <li>Vegetable’s Package <span>$75.99</span></li>
-                                    <li>Fresh Vegetable <span>$151.99</span></li>
-                                    <li>Organic Bananas <span>$53.99</span></li>
+                                    @foreach($cartItems as $cartItem)
+                                        <!-- <li>{{ $cartItem->product->name }} - Quantity: {{ $cartItem->quantity }}</li> -->
+                                        <li>
+
+                                            {{ $cartItem->product->name }}
+
+                                            @if ($cartItem->variation)
+                                                
+                                                <span>${{ $cartItem->variation->price * $cartItem->quantity}}</span>
+                                            
+                                            @else
+                                            
+                                                <span> ${{ $cartItem->product->price * $cartItem->quantity}} </span>
+
+                                            @endif
+
+                                        </li>
+                                    @endforeach
+                                    
                                 </ul>
                                 <div class="checkout__order__subtotal">Subtotal <span>${{ $totalPrice }}</span></div>
                                 <div class="checkout__order__total">Total <span>${{ $totalPrice }}</span></div>

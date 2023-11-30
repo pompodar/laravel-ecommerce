@@ -25,8 +25,13 @@ lang="{{ str_replace('_', '-', app()->getLocale()) }}"
         @vite(['resources/js/app.jsx']) -->
 
         <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon.ico" />
-
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -67,7 +72,7 @@ lang="{{ str_replace('_', '-', app()->getLocale()) }}"
           <div class="app-brand demo">
             <a href="/" class="app-brand-link">
               <span class="app-brand-logo demo">
-                <img src="front_end_assets/img/logo.png" alt="">
+                <img src="/front_end_assets/img/logo.png" alt="">
               </span>
             </a>
 
@@ -88,7 +93,7 @@ lang="{{ str_replace('_', '-', app()->getLocale()) }}"
               </a>
               <ul class="menu-sub">
                 <li class="menu-item active">
-                  <a href="index.html" class="menu-link">
+                  <a href="/admin/" class="menu-link">
                     <div data-i18n="Analytics">Analytics</div>
                   </a>
                 </li>
