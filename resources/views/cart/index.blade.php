@@ -59,10 +59,17 @@
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
+                                            <form class="update-cart" id="update-cart" action="{{ route('cart.updateCart', ['cartItemId' => $cartItem->id]) }}" method="post">
+                                                @csrf
+                                                @method('patch')
                                             <div class="pro-qty">
-                                                    <label for="quantity"></label>
-                                                    <input id="quantityInput" type="number" name="quantity" value="{{ $cartItem->quantity }}" min="1">
-                                            </div>
+
+                                                <label for="quantity"></label>
+                                                <input type="number" name="quantity" value="{{ $cartItem->quantity }}" min="1">
+                                            </div>                                      
+                                                <button type="submit"><i class="fa-solid fa-arrows-rotate"></i></button>
+                                            </form>
+                                            
                                         </div>
                                     </td>
                                     <td class="shoping__cart__total">
@@ -83,17 +90,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                        <form class="update-cart" id="update-cart" action="{{ route('cart.updateCart', ['cartItemId' => $cartItem->id]) }}" method="post">
-                            @csrf
-                            @method('patch')
-
-                            <input type="hidden" class="hiddenQuantity" name="quantity">
-                            
-                            <a href="javascript:void(0);" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                            <input type="submit" value="Upadate Cart">
-                            </a>
-                        </form>
+                        <a href="/" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -111,10 +108,10 @@
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Subtotal <span>$454.98</span></li>
-                            <li>Total <span>$454.98</span></li>
+                            <li>Subtotal <span>{{ $total }}</span></li>
+                            <li>Total <span>{{ $total }}</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <a href="/checkout" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
                 </div>
             </div>
@@ -129,16 +126,29 @@
 <!-- JavaScript to update the hidden input on form submission -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('update-cart');
-        const quantityInput = document.getElementById('quantityInput');
-        const hiddenInput = document.querySelector('.hiddenQuantity');
+        // const form = document.getElementById('update-cart');
+        // const quantityInput = document.getElementById('quantityInput');
+        // const hiddenInput = document.querySelector('.hiddenQuantity');
 
-        // Add a submit event listener to the form
-        form.addEventListener('submit', function(event) {
-            // Set the value of the hidden input to the value of the quantity input
-            hiddenInput.value = quantityInput.value;
-            alert('Quantity updated: ' + quantityInput.value);
-        });
+        // // Add a submit event listener to the form
+        // form.addEventListener('submit', function(event) {
+        //     // Set the value of the hidden input to the value of the quantity input
+        //     hiddenInput.value = quantityInput.value;
+        // });
+    });
+
+    // Store scroll position before leaving the page
+    window.addEventListener('beforeunload', function() {
+        localStorage.setItem('scrollPosition', window.scrollY);
+    });
+
+    // Restore scroll position on page load
+    window.addEventListener('load', function() {
+        var scrollPosition = localStorage.getItem('scrollPosition');
+        if (scrollPosition !== null) {
+            window.scrollTo(0, scrollPosition);
+            localStorage.removeItem('scrollPosition');
+        }
     });
 </script>
 

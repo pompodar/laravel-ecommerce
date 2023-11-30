@@ -191,7 +191,8 @@ ol {
 	top: 0;
 	left: 0;
 	z-index: 999999;
-	background: transparent;
+	background: grey;
+	opacity: 0.9;
 }
 
 .loader {
@@ -3487,7 +3488,7 @@ ol {
 	display: inline;
 }
 
-.update-cart input {
+.update-cart button {
 	border: none;
 	background-color: transparent;
 	color: #6f6f6f;

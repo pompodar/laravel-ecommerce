@@ -83,7 +83,18 @@ class CartController extends Controller
         
         $cartItems = Cart::with('product', 'variation')->where('user_id', $user->id)->get();
 
-        return view('cart.index', compact('cartItems'));
+        // Calculate totals
+        $subtotal = $cartItems->sum(function ($cartItem) {
+            $variations = ProductVariation::where('product_id', $cartItem->product->id)->get();
+
+            $hasVariations = $variations->isNotEmpty();
+           
+            return $hasVariations ? $cartItem->quantity * $cartItem->variation->price : $cartItem->quantity * $cartItem->product->price;
+        });
+
+        $total = $subtotal; // You can add other calculations (e.g., taxes, discounts) as needed
+
+        return view('cart.index', compact('cartItems', 'total'));
     }
 
 }

@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="front_end_assets/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="front_end_assets/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="front_end_assets/css/style.css" type="text/css">
+
+    <script src="https://kit.fontawesome.com/9f3a632633.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
