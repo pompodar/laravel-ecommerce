@@ -76,7 +76,15 @@
                                         ${{ $cartItem->product->price * $cartItem->quantity }}
                                     </td>
                                     <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
+                                        <form action="{{ route('cart.removeFromCart', ['cartItemId' => $cartItem->id]) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+
+                                            <button type="submit">
+                                                <span class="icon_close"></span>
+                                            </button>
+                                        </form>
+
                                     </td>
                                 </tr>
 

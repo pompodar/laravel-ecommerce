@@ -97,4 +97,15 @@ class CartController extends Controller
         return view('cart.index', compact('cartItems', 'total'));
     }
 
+    public function removeFromCart($cartItemId)
+    {
+        $cartItem = Cart::findOrFail($cartItemId);
+
+        // Delete the cart item
+        $cartItem->delete();
+
+        return redirect()->route('cart.viewCart')->with('success', 'Item removed from cart successfully');
+    }
+
+
 }

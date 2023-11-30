@@ -3497,3 +3497,12 @@ ol {
 	font-weight: 700;
 	letter-spacing: 2px;
 }
+
+.shoping__cart__item__close form {
+	margin: 0;
+}
+
+.shoping__cart__item__close button {
+	background-color: transparent;
+	border: none;
+}
