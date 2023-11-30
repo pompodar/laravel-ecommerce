@@ -13647,7 +13647,7 @@ button.list-group-item-gray.active {
     column-gap: 3rem !important;
   }
 }
-@media (min-width: 900px) {
+@media (min-width: 1200px) {
   .object-fit-xl-contain {
     object-fit: contain !important;
   }
@@ -17300,7 +17300,7 @@ html:not(.layout-footer-fixed) .content-wrapper {
     left: 16.25rem;
   }
 }
-@media (max-width: 999.98px) {
+@media (max-width: 1199.98px) {
   .layout-menu {
     position: fixed !important;
     top: 0 !important;
