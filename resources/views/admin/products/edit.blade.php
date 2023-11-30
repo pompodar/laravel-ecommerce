@@ -13,6 +13,21 @@
                     <span class="text-muted fw-light"><a href="{{ route('admin.products.show', ['slug' => $product->slug]) }}">{{ $product->name }}</a> / </span>
 
                 </h4>
+
+                @if(session('success'))
+                    <div style="color: green;">{{ session('success') }}</div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
               <!-- Basic Layout -->
               <div class="row">
 
@@ -28,7 +43,7 @@
                       
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-fullname">Name</label>
-                          <input name="name" type="text" value="{{ $product->name }}" class="form-control" id="basic-default-fullname" placeholder="" />
+                          <input name="name" type="text" value="{{ $product->name }}" class="form-control" id="basic-default-fullname" placeholder="" required/>
                         </div>
 
                         <div class="mb-3">
@@ -37,13 +52,14 @@
                             name="description"
                             id="basic-default-message"
                             class="form-control"
-                            placeholder="">{{ $product->description }}
+                            placeholder=""
+                            required >{{ $product->description }}
                         </textarea>
                         </div>
 
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-company">Price</label>
-                          <input type="number" value="{{ $product->price }}" class="form-control" id="basic-default-company" placeholder="ACME Inc." />
+                          <input name="price" type="number" value="{{ $product->price }}" class="form-control" id="basic-default-company" placeholder="" required/>
                         </div>
 
                         <div class="mb-3">
@@ -56,7 +72,7 @@
                         
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-company">Stock</label>
-                          <input type="number" value="{{ $product->stock }}" class="form-control" id="basic-default-company" placeholder="ACME Inc." />
+                          <input name="stock" type="number" value="{{ $product->stock }}" class="form-control" id="basic-default-company" placeholder="" required/>
                         </div>
 
                         <div class="mb-3">
@@ -73,7 +89,7 @@
                         <div class="mb-3">
                             <label class="form-label" for="categories">Attributes:</label>
                             <select class="form-control" name="attributes[]" multiple>
-                                @foreach ($product->attributes as $attribute)
+                                @foreach ($attributes as $attribute)
                                     <option value="{{ $attribute->id }}" {{ in_array($attribute->id, $selectedAttributes) ? 'selected' : '' }}>
                                         {{ $attribute->name }}
                                     </option>

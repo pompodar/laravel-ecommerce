@@ -1,129 +1,264 @@
 <!DOCTYPE html>
+<html lang="zxx">
 
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ogani</title>
 
-    <head>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
-        <meta charset="utf-8">
-        
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="front_end_assets/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="front_end_assets/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="front_end_assets/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="front_end_assets/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="front_end_assets/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="front_end_assets/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="front_end_assets/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="front_end_assets/css/style.css" type="text/css">
+</head>
 
-        <title>Shop</title>
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
 
-        <script src="https://kit.fontawesome.com/9f3a632633.js" crossorigin="anonymous"></script>
-
-        <link rel="stylesheet" href="./../app.css">
-        <!-- @routes
-        @viteReactRefresh
-        @vite(['resources/js/app.jsx']) -->
-    
-    </head>
-    
-    <body>
-        
-        <div class="wrapper">
-           
-            <header>
-l
-                <a class="logo" href="/">
-
-                    <svg class="icon-logo" width="50px" height="50px" viewBox="0 0 42 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <title>blobs and trees</title>
-                        <defs></defs>
-                        <path d="M21.54 1.017c1.629 1.070 3.052 2.372 4.255 3.925 0.061 0.078 0.2 0.117 0.307 0.128 0.452 0.044 0.911 0.036 1.358 0.108 4.474 0.718 7.528 4.324 7.555 8.948 0.021 3.641 0.005 7.282 0.006 10.923 0 1.476-0.019 2.954 0.011 4.43 0.035 1.755 1.624 2.906 3.243 2.384 1.075-0.347 1.725-1.339 1.725-2.655 0.001-4.713-0.009-9.426-0-14.139 0.003-1.623-0.078-3.227-0.523-4.802-2.381-8.439-10.504-11.479-16.622-9.839-0.472 0.126-0.933 0.293-1.435 0.453 0.070 0.081 0.090 0.117 0.121 0.137zM0.032 13.264c0.092-3.736 1.572-6.845 4.187-9.402 2.003-1.959 4.379-3.216 7.13-3.649 7.349-1.155 14.007 3.242 15.771 10.677 0.342 1.443 0.341 2.906 0.342 4.372 0.001 3.015-0.024 6.030 0.007 9.044 0.041 3.953-2.755 6.897-6.2 7.562-4.213 0.813-8.262-2.236-8.691-6.593-0.138-1.404-0.109-2.828-0.117-4.243-0.015-2.357 0.004-4.714 0.004-7.071 0-2.668 0.732-5.12 2.072-7.395 0.105-0.179 0.235-0.229 0.419-0.188 1.529 0.338 2.898 0.994 4.057 2.087 0.197 0.186 0.119 0.327 0.003 0.495-0.596 0.856-1.086 1.772-1.292 2.805-0.146 0.729-0.259 1.478-0.265 2.219-0.027 3.409-0.016 6.818-0.009 10.227 0.002 1.324 0.75 2.333 1.901 2.648 1.239 0.339 3.131-0.556 3.121-2.397-0.019-3.641-0.008-7.283-0.035-10.924-0.019-2.568-1.074-4.666-2.983-6.285-5.123-4.345-11.981-1.793-13.972 3.641-0.416 1.133-0.548 2.311-0.549 3.513-0.002 4.866 0.090 9.732 0.075 14.598-0.001 0.409-0.036 0.836-0.15 1.225-0.346 1.174-1.37 1.861-2.534 1.755-1.187-0.109-2.125-0.995-2.24-2.215-0.078-0.833-0.115-13.936-0.051-16.504z"></path>
-                    </svg>
-
-                    blobs and trees
-                </a>
-
-                <i class="fa-solid fa-magnifying-glass search-sign"></i>
-
-            
-                <nav>
-
-                    <ul>
-
-                        <li>
-                            <a href="/cart">
-                            
-                                <i class="fa-solid fa-cart-shopping"></i>
-                            
-                            </a>
-                        </li>
-
-                        @if(auth()->check() && auth()->user()->isAdmin())
-                            
-                            <li>
-                                
-                                <a href="/admin">
-                                   
-                                    <i class="fa-solid fa-lock"></i>
-                                
-                                </a>
-                    
-                            </li>
-                
-                        @endif
-
-                        @if(!auth()->check())
-
-                            <li>
-                                
-                                <a href="/login">
-                                   
-                                    <i class="fa-solid fa-right-to-bracket"></i>
-                                
-                                </a>
-                    
-                            </li>
-
-                        @else
-
-                        
-                            <li>
-                                
-                                <a href="/dashboard">
-                                   
-                                    <i class="fa-regular fa-user"></i>
-                                
-                                </a>
-                    
-                            </li>
-
-                            <li>
-
-                                <form action="{{ route('logout') }}" method="post">
-                                    
-                                    @csrf
-                                    
-                                    <button type="submit">
-
-                                        <i class="fa-solid fa-right-from-bracket"></i>
-                                    
-                                    </button>
-                                
-                                </form>                               
-                                                    
-                            </li>
-                                    
-                        @endif
-
-                    </ul>
-                
-                </nav>
-            
-            </header>
-
-            <main>
-                @yield('content')
-            </main>
-
-            <footer>
-                footer
-            </footer>
-
+    <!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+        <div class="humberger__menu__logo">
+            <a href="#"><img src="front_end_assets/img/logo.png" alt=""></a>
         </div>
+        <div class="humberger__menu__cart">
+            <ul>
+                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+            </ul>
+            <div class="header__cart__price">item: <span>$150.00</span></div>
+        </div>
+        <div class="humberger__menu__widget">
+            <div class="header__top__right__language">
+                <img src="front_end_assets/img/language.png" alt="">
+                <div>English</div>
+                <span class="arrow_carrot-down"></span>
+                <ul>
+                    <li><a href="#">Spanis</a></li>
+                    <li><a href="#">English</a></li>
+                </ul>
+            </div>
+            <div class="header__top__right__auth">
+                <a href="/login"><i class="fa fa-user"></i> Login</a>
+            </div>
+        </div>
+        <nav class="humberger__menu__nav mobile-menu">
+            <ul>
+                <li class="active"><a href="./index.html">Home</a></li>
+                <li><a href="./shop-grid.html">Shop</a></li>
+                <li><a href="#">Pages</a>
+                    <ul class="header__menu__dropdown">
+                        <li><a href="./shop-details.html">Shop Details</a></li>
+                        <li><a href="/cart">Shoping Cart</a></li>
+                        <li><a href="./checkout.html">Check Out</a></li>
+                        <li><a href="./blog-details.html">Blog Details</a></li>
+                    </ul>
+                </li>
+                <li><a href="./blog.html">Blog</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="header__top__right__social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+        </div>
+        <div class="humberger__menu__contact">
+            <ul>
+                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                <li>Free Shipping for all Order of $99</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Humberger End -->
 
-    </body>
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="header__top__left">
+                            <ul>
+                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                                <li>Free Shipping for all Order of $99</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="header__top__right">
+                            <div class="header__top__right__social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                            </div>
+                            <div class="header__top__right__language">
+                                <img src="front_end_assets/img/language.png" alt="">
+                                <div>English</div>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="#">Spanis</a></li>
+                                    <li><a href="#">English</a></li>
+                                </ul>
+                            </div>
+                            <div class="header__top__right__auth">
+                                <a href="/login"><i class="fa fa-user"></i> Login</a>
+                            </div>
+
+                            @if(auth()->check() && auth()->user()->isAdmin())
+
+                                <div class="ml-2 header__top__right__auth">
+                                    <a href="/admin"><i class="fa fa-user"></i> Admin</a>
+                                </div>
+
+                            @endif
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="./index.html"><img src="front_end_assets/img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="active"><a href="./index.html">Home</a></li>
+                            <li><a href="./shop-grid.html">Shop</a></li>
+                            <li><a href="#">Pages</a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="./shop-details.html">Shop Details</a></li>
+                                    <li><a href="/cart">Shoping Cart</a></li>
+                                    <li><a href="./checkout.html">Check Out</a></li>
+                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="./blog.html">Blog</a></li>
+                            <li><a href="./contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                            <li><a href="/cart"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                        </ul>
+                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+    
+    @yield('content')
+    
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img src="front_end_assets/img/logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello@colorlib.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>Useful Links</h6>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">About Our Shop</a></li>
+                            <li><a href="#">Secure Shopping</a></li>
+                            <li><a href="#">Delivery infomation</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Our Sitemap</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">Who We Are</a></li>
+                            <li><a href="#">Our Services</a></li>
+                            <li><a href="#">Projects</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Innovation</a></li>
+                            <li><a href="#">Testimonials</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>Join Our Newsletter Now</h6>
+                        <p>Get E-mail updates about our latest shop and special offers.</p>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your mail">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__widget__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                        <div class="footer__copyright__payment"><img src="front_end_assets/img/payment-item.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script src="front_end_assets/js/jquery-3.3.1.min.js"></script>
+    <script src="front_end_assets/js/bootstrap.min.js"></script>
+    <script src="front_end_assets/js/jquery.nice-select.min.js"></script>
+    <script src="front_end_assets/js/jquery-ui.min.js"></script>
+    <script src="front_end_assets/js/jquery.slicknav.js"></script>
+    <script src="front_end_assets/js/mixitup.min.js"></script>
+    <script src="front_end_assets/js/owl.carousel.min.js"></script>
+    <script src="front_end_assets/js/main.js"></script>
+
+
+
+</body>
 
 </html>

@@ -1,43 +1,146 @@
-@extends('layouts.dashboard')
+@extends('layouts.app')
 
 @section('content')
-    <h1>Shopping Cart</h1>
-
-    <hr>
-
-    <div class="cart-items">
-        
-        <div class="cart-item">
-
-            @foreach ($cartItems as $cartItem)
-    
-                <p> {{ $cartItem->product->name }} </p>
-                
-                <form action="{{ route('cart.updateCart', ['cartItemId' => $cartItem->id]) }}" method="post">
-                    @csrf
-                    @method('patch')
-
-                    <label for="quantity">Quantity:</label>
-                    <input type="number" name="quantity" value="{{ $cartItem->quantity }}" min="1">
-
-                    <button type="submit">Change Quantity</button>
-                </form>
-
-                @if ($cartItem->variation)
-                    
-                    <p>${{ $cartItem->variation->price }}</p>
-                
-                @else
-                
-                    <p> {{ $cartItem->product->price }} </p>
-
-                @endif
-    
-            @endforeach
-
-
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="front_end_assets/img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Shopping Cart</h2>
+                        <div class="breadcrumb__option">
+                            <a href="/cart">Home</a>
+                            <span>Shopping Cart</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    
-    </div>
+    </section>
+    <!-- Breadcrumb Section End -->
 
+    <!-- Shoping Cart Section Begin -->
+    <section class="shoping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="shoping__product">Products</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach ($cartItems as $cartItem)
+                                
+                                <tr>
+                                    <td class="shoping__cart__item">
+                                        <img src="{{ '/' . $cartItem->product->image }}" alt="">
+                                        <h5>{{ $cartItem->product->name }}</h5>
+                                    </td>
+                                    <td class="shoping__cart__price">
+
+                                        @if ($cartItem->variation)
+                    
+                                            ${{ $cartItem->variation->price }}
+                                        
+                                        @else
+                                        
+                                            ${{ $cartItem->product->price }}
+
+                                        @endif
+                                    
+                                    </td>
+                                    <td class="shoping__cart__quantity">
+                                        <div class="quantity">
+                                            <div class="pro-qty">
+                                                    <label for="quantity"></label>
+                                                    <input id="quantityInput" type="number" name="quantity" value="{{ $cartItem->quantity }}" min="1">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="shoping__cart__total">
+                                        $110.00
+                                    </td>
+                                    <td class="shoping__cart__item__close">
+                                        <span class="icon_close"></span>
+                                    </td>
+                                </tr>
+
+                                @endforeach
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__btns">
+                        <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                        <form class="update-cart" id="update-cart" action="{{ route('cart.updateCart', ['cartItemId' => $cartItem->id]) }}" method="post">
+                            @csrf
+                            @method('patch')
+
+                            <input type="hidden" class="hiddenQuantity" name="quantity">
+                            
+                            <a href="javascript:void(0);" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+                            <input type="submit" value="Upadate Cart">
+                            </a>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="shoping__continue">
+                        <div class="shoping__discount">
+                            <h5>Discount Codes</h5>
+                            <form action="#">
+                                <input type="text" placeholder="Enter your coupon code">
+                                <button type="submit" class="site-btn">APPLY COUPON</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="shoping__checkout">
+                        <h5>Cart Total</h5>
+                        <ul>
+                            <li>Subtotal <span>$454.98</span></li>
+                            <li>Total <span>$454.98</span></li>
+                        </ul>
+                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shoping Cart Section End -->
+    
 @endsection
+
+<!-- Your existing HTML code -->
+
+<!-- JavaScript to update the hidden input on form submission -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('update-cart');
+        const quantityInput = document.getElementById('quantityInput');
+        const hiddenInput = document.querySelector('.hiddenQuantity');
+
+        // Add a submit event listener to the form
+        form.addEventListener('submit', function(event) {
+            // Set the value of the hidden input to the value of the quantity input
+            hiddenInput.value = quantityInput.value;
+            alert('Quantity updated: ' + quantityInput.value);
+        });
+    });
+</script>
+
+<!-- Your existing HTML code -->
+

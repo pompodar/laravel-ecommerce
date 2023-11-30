@@ -1,73 +1,105 @@
-@extends('layouts.app') {{-- You can adjust the layout based on your application's structure --}}
+@extends('layouts.dashboard')
 
 @section('content')
-    <h1>All Products</h1>
 
-    
-    <h2>Create Product</h2>
+    <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
 
-    @if(session('success'))
-        <div style="color: green;">{{ session('success') }}</div>
-    @endif
+            <div class="container-xxl flex-grow-1 container-p-y">
+                <h4 class="breadcrumbs mb-3">
+                    <span class="text-muted fw-light"><a href="{{ route('admin.index')}}">Dashboard</a> / </span>
+                    <span class="text-muted fw-light"><a href="{{ route('admin.products.index')}}">Products</a> / </span>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+                </h4>
+
+                @if(session('success'))
+                    <div style="color: green;">{{ session('success') }}</div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+              <!-- Basic Layout -->
+              <div class="row">
+
+                <div class="col-xl">
+                  <div class="card mb-4">
+
+                    <div class="card-body">
+                      <form action="{{ route('admin.products.store') }}" method="post" enctype="multipart/form-data">
+                        
+                        @csrf
+                                              
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-fullname">Name</label>
+                          <input name="name" type="text"class="form-control" id="basic-default-fullname" placeholder="" />
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-message">Description</label>
+                          <textarea
+                            name="description"
+                            id="basic-default-message"
+                            class="form-control">
+                        </textarea>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-company">Price</label>
+                          <input type="number" class="form-control" id="basic-default-company" placeholder="" />
+                        </div>
+
+                        <div class="mb-3">
+                        
+                            <label class="form-label" for="photo">Photo:</label>
+                        
+                            <input class="form-control" type="file" name="photo">
+
+                        </div>
+                        
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-company">Stock</label>
+                          <input type="number" class="form-control" id="basic-default-company" placeholder="" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="categories">Categories:</label>
+                            <select class="form-control" name="categories[]" multiple>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" >
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="categories">Attributes:</label>
+                            <select class="form-control" name="attributes[]" multiple>
+                                @foreach ($attributes as $attribute)
+                                    <option value="{{ $attribute->id }}" >
+                                        {{ $attribute->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
         </div>
-    @endif
-
-    <form action="{{ route('admin.products.store') }}" method="post" enctype="multipart/form-data">
-        @csrf
-
-        <label for="name">Name:</label>
-        <input type="text" name="name" required>
-        <br>
-
-        <label for="description">Description:</label>
-        <textarea name="description" required></textarea>
-        <br>
-
-        <label for="price">Price:</label>
-        <input type="number" name="price" required>
-        <br>
-
-        <label for="stock">Stock:</label>
-        <input type="number" name="stock" required>
-        <br>
-
-        <label for="categories">Categories:</label>
-        <select name="categories[]" id="categories" multiple="multiple">
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
-            @endforeach
-        </select>
-        <br>
-
-        <label for="tags">Tags:</label>
-        <select name="tags[]" multiple>
-            @foreach($tags as $tag)
-                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
-            @endforeach
-        </select>
-        <br>
-
-        <label for="tags">Attributes:</label>
-        <select name="attributes[]" multiple>
-            @foreach($attributes as $attribute)
-                <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
-            @endforeach
-        </select>
-        <br>
-
-        <label for="photo">Photo:</label>
-        <input type="file" name="photo">
-        <br>
-
-        <button type="submit">Submit</button>
-    </form>
-
+    </div>
+                
 @endsection
