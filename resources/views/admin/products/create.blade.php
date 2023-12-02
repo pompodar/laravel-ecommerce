@@ -13,20 +13,6 @@
 
                 </h4>
 
-                @if(session('success'))
-                    <div style="color: green;">{{ session('success') }}</div>
-                @endif
-
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
               <!-- Basic Layout -->
               <div class="row">
 
@@ -54,7 +40,7 @@
 
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-company">Price</label>
-                          <input type="number" class="form-control" id="basic-default-company" placeholder="" />
+                          <input name="price" type="number" class="form-control" id="basic-default-company" placeholder="" />
                         </div>
 
                         <div class="mb-3">
@@ -67,7 +53,7 @@
                         
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-company">Stock</label>
-                          <input type="number" class="form-control" id="basic-default-company" placeholder="" />
+                          <input name="stock" type="number" class="form-control" id="basic-default-company" placeholder="" />
                         </div>
 
                         <div class="mb-3">
@@ -92,7 +78,7 @@
                             </select>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
                       </form>
                     </div>
 

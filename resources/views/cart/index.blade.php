@@ -116,8 +116,8 @@
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Subtotal <span>{{ $total }}</span></li>
-                            <li>Total <span>{{ $total }}</span></li>
+                            <li>Subtotal <span>${{ $total }}.00</span></li>
+                            <li>Total <span>${{ $total }}.00</span></li>
                         </ul>
                         <a href="/checkout" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>

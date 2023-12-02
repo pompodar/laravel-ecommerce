@@ -3506,3 +3506,11 @@ ol {
 	background-color: transparent;
 	border: none;
 }
+
+.go-to-cart {
+	padding: 4px;
+}
+
+.go-to-cart i:hover {
+	color: orangered;
+}

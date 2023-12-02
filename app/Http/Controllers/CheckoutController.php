@@ -64,6 +64,9 @@ class CheckoutController extends Controller
             }
         }
 
+        // Reduce stock
+        $cartItem->product->decrement('stock', $cartItem->quantity);
+
         // Clear the user's cart
         $user->cart()->delete();
 

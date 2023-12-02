@@ -89,8 +89,13 @@
             
                     </tbody>
                   </table>
+                  
                 </div>
+
               </div>
+
+              {{ $products->links() }}
+
               <!--/ Basic Bootstrap Table -->
 
             </div>

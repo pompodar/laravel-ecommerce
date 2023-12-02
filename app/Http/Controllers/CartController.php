@@ -10,11 +10,15 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    public function addToCart(Request $request, Product $product)
+    public function addToCart(Request $request)
     {
         $user = Auth::user();
 
-        $variations = ProductVariation::where('product_id', $product->id)->get();
+        $product_id = $request->input('product_id');
+
+        $quantity = $request->input('quantity');
+
+        $variations = ProductVariation::where('product_id', $product_id)->get();
 
         $hasVariations = $variations->isNotEmpty();
 
@@ -23,8 +27,19 @@ class CartController extends Controller
         // $product_variation = ProductVariation::find($variationId);
 
         $cartItem = Cart::where('user_id', $user->id)
-            ->where('product_id', $product->id)
+            ->where('product_id', $product_id)
             ->first();
+
+        
+    // Validate quantity against stock
+    $product = Product::find($product_id);
+    if (!$product) {
+        return response()->json(['message' => 'Product not found'], 404);
+    }
+
+    if ($quantity > $product->stock) {
+        return response()->json(['message' => 'Not enough stock available'], 422);
+    }
 
         if ($cartItem) {
             // Check if the existing cart item has the same variation_id
@@ -34,7 +49,7 @@ class CartController extends Controller
             } else {
                 // Add a new item to the cart with a different variation_id
                 $user->cart()->create([
-                    'product_id' => $product->id,
+                    'product_id' => $product_id,
                     'quantity' => 1,
                     'variation_id' => $variation_id,
                 ]);
@@ -42,27 +57,28 @@ class CartController extends Controller
         } else {
             // Add a new item to the cart if it doesn't exist
             $user->cart()->create([
-                'product_id' => $product->id,
+                'product_id' => $product_id,
                 'quantity' => 1,
                 'variation_id' => $variation_id,
             ]);
         }
 
-        return back()->with('success', 'Product added to cart successfully');
+        return response()->json(['message' => 'Product added to cart successfully']);    
+
     }
 
     public function updateCart(Request $request, $cartItemId)
     {
-        // Validate the request
-        $request->validate([
-            'quantity' => 'required|integer|min:1', // Add any additional validation rules as needed
-        ]);
-
         // Retrieve the authenticated user
         $user = Auth::user();
 
         // Find the cart item by ID for the authenticated user
         $cartItem = $user->cart()->find($cartItemId);
+
+        // Validate the request
+        $request->validate([
+            'quantity' => 'required|numeric|min:1|max:' . $cartItem->product->stock,
+        ]);
 
         // Check if the cart item exists
         if (!$cartItem) {

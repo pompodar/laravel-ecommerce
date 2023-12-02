@@ -123,11 +123,11 @@
 
                                             @if ($cartItem->variation)
                                                 
-                                                <span>${{ $cartItem->variation->price * $cartItem->quantity}}</span>
+                                                <span>${{ $cartItem->variation->price * $cartItem->quantity}}.00 </span>
                                             
                                             @else
                                             
-                                                <span> ${{ $cartItem->product->price * $cartItem->quantity}} </span>
+                                                <span> ${{ $cartItem->product->price * $cartItem->quantity}}.00 </span>
 
                                             @endif
 
@@ -135,8 +135,8 @@
                                     @endforeach
                                     
                                 </ul>
-                                <div class="checkout__order__subtotal">Subtotal <span>${{ $totalPrice }}</span></div>
-                                <div class="checkout__order__total">Total <span>${{ $totalPrice }}</span></div>
+                                <div class="checkout__order__subtotal">Subtotal <span>${{ $totalPrice }}.00 </span></div>
+                                <div class="checkout__order__total">Total <span>${{ $totalPrice }}.00 </span></div>
                                 <!-- <div class="checkout__input__checkbox">
                                     <label for="acc-or">
                                         Create an account?

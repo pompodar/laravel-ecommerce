@@ -13,14 +13,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="front_end_assets/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="front_end_assets/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="front_end_assets/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="front_end_assets/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="front_end_assets/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="front_end_assets/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="front_end_assets/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="front_end_assets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/front_end_assets/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/front_end_assets/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/front_end_assets/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/front_end_assets/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/front_end_assets/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/front_end_assets/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/front_end_assets/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/front_end_assets/css/style.css" type="text/css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -44,7 +44,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="/"><img src="front_end_assets/img/logo.png" alt=""></a>
+            <a href="/"><img src="/front_end_assets/img/logo.png" alt=""></a>
         </div>
         <div class="humberger__menu__cart">
             <ul>
@@ -54,15 +54,15 @@
             <div class="header__cart__price">item: <span>$150.00</span></div>
         </div>
         <div class="humberger__menu__widget">
-            <div class="header__top__right__language">
-                <img src="front_end_assets/img/language.png" alt="">
+            <!-- <div class="header__top__right__language">
+                <img src="/front_end_assets/img/language.png" alt="">
                 <div>English</div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
                     <li><a href="#">Spanis</a></li>
                     <li><a href="#">English</a></li>
                 </ul>
-            </div>
+            </div> -->
             <div class="header__top__right__auth">
                 <a href="/login"><i class="fa fa-user"></i> Login</a>
             </div>
@@ -92,7 +92,7 @@
         </div>
         <div class="humberger__menu__contact">
             <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                <li><i class="fa fa-envelope"></i> hello@ogani.com</li>
                 <li>Free Shipping for all Order of $99</li>
             </ul>
         </div>
@@ -107,7 +107,7 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                                <li><i class="fa fa-envelope"></i> hello@ogani.com</li>
                                 <li>Free Shipping for all Order of $99</li>
                             </ul>
                         </div>
@@ -120,15 +120,15 @@
                                 <a href="#"><i class="fa fa-linkedin"></i></a>
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
-                            <div class="header__top__right__language">
-                                <img src="front_end_assets/img/language.png" alt="">
+                            <!-- <div class="header__top__right__language">
+                                <img src="/front_end_assets/img/language.png" alt="">
                                 <div>English</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
                                     <li><a href="#">Spanis</a></li>
                                     <li><a href="#">English</a></li>
                                 </ul>
-                            </div>
+                            </div> -->
                             <div class="header__top__right__auth">
                                 <a href="/login"><i class="fa fa-user"></i> Login</a>
                             </div>
@@ -137,6 +137,14 @@
 
                                 <div class="ml-2 header__top__right__auth">
                                     <a href="/admin"><i class="fa fa-user"></i> Admin</a>
+                                </div>
+
+                            @endif
+
+                            @if(auth()->check())
+
+                                <div class="ml-2 header__top__right__auth">
+                                    <a href="/dashboard"><i class="fa fa-user"></i> Dashboard</a>
                                 </div>
 
                             @endif
@@ -150,7 +158,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="/"><img src="front_end_assets/img/logo.png" alt=""></a>
+                        <a href="/"><img src="/front_end_assets/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -197,7 +205,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="/"><img src="front_end_assets/img/logo.png" alt=""></a>
+                            <a href="/"><img src="/front_end_assets/img/logo.png" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: 60-49 Road 11378 New York</li>
@@ -248,9 +256,9 @@
                 <div class="col-lg-12">
                     <div class="footer__copyright">
                         <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by pompodare
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
-                        <div class="footer__copyright__payment"><img src="front_end_assets/img/payment-item.png" alt=""></div>
+                        <div class="footer__copyright__payment"><img src="/front_end_assets/img/payment-item.png" alt=""></div>
                     </div>
                 </div>
             </div>
@@ -259,14 +267,14 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="front_end_assets/js/jquery-3.3.1.min.js"></script>
-    <script src="front_end_assets/js/bootstrap.min.js"></script>
-    <script src="front_end_assets/js/jquery.nice-select.min.js"></script>
-    <script src="front_end_assets/js/jquery-ui.min.js"></script>
-    <script src="front_end_assets/js/jquery.slicknav.js"></script>
-    <script src="front_end_assets/js/mixitup.min.js"></script>
-    <script src="front_end_assets/js/owl.carousel.min.js"></script>
-    <script src="front_end_assets/js/main.js"></script>
+    <script src="/front_end_assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/front_end_assets/js/bootstrap.min.js"></script>
+    <script src="/front_end_assets/js/jquery.nice-select.min.js"></script>
+    <script src="/front_end_assets/js/jquery-ui.min.js"></script>
+    <script src="/front_end_assets/js/jquery.slicknav.js"></script>
+    <script src="/front_end_assets/js/mixitup.min.js"></script>
+    <script src="/front_end_assets/js/owl.carousel.min.js"></script>
+    <script src="/front_end_assets/js/main.js"></script>
 
 
 

@@ -138,16 +138,22 @@
 
                                     @if($product->variations->isNotEmpty())
                                 
-                                    <form class="add-to-cart" action="{{ route('home.show', $product) }}" method="post">
+                                    <form class="add-to-cart addToCartForm" action="{{ route('home.show', $product) }}" method="post">
                                         @csrf
+                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                         <input type="number" name="quantity" value="1" min="1">
+
                                         <button type="submit">add to cart</button>
                                     </form>
 
                                     @else
 
-                                        <form class="add-to-cart" action="{{ route('cart.addToCart', $product) }}" method="post">
+                                        <form class="add-to-cart addToCartForm" action="{{ route('cart.addToCart', $product) }}" method="post">
                                             @csrf
                                             
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <input type="hidden" type="number" name="quantity" value="1" min="1">
+
                                             <button class="add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i></button>
                                             
                                         </form>
@@ -162,8 +168,12 @@
 
                             @if(session('success'))
                         
-                            <div class="success">{{ session('success') }}</div>
-                            
+                            <div class="success">{{ session('success') }}
+                                <span class="go-to-cart">
+                                    <a href="/cart"><i class="fa fa-shopping-bag"></i></a>
+                                </span>
+                            </div>
+
                             <!-- <a class="go-to-cart" href="{{ route('cart.viewCart')  }}">go to cart</a> -->
                         
                         @endif
@@ -482,16 +492,48 @@
 
 <script>
     // Store scroll position before leaving the page
-    window.addEventListener('beforeunload', function() {
-        localStorage.setItem('scrollPosition', window.scrollY);
+    // window.addEventListener('beforeunload', function() {
+    //     localStorage.setItem('scrollPosition', window.scrollY);
+    // });
+
+    // // Restore scroll position on page load
+    // window.addEventListener('load', function() {
+    //     var scrollPosition = localStorage.getItem('scrollPosition');
+    //     if (scrollPosition !== null) {
+    //         window.scrollTo(0, scrollPosition);
+    //         localStorage.removeItem('scrollPosition');
+    //     }
+    // });
+
+// Get all forms with the class 'addToCartForm'
+    
+document.addEventListener('DOMContentLoaded', function() {
+            // Your JavaScript code here
+
+            // For example, let's log a message to the console
+            console.log('DOM is fully loaded');
+            var addToCartForms = document.querySelectorAll('.addToCartForm');
+console.log(addToCartForms);
+    addToCartForms.forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var formData = new FormData(form);
+
+            fetch('/cart/add-to-cart', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // You can replace this with a more user-friendly notification
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
     });
 
-    // Restore scroll position on page load
-    window.addEventListener('load', function() {
-        var scrollPosition = localStorage.getItem('scrollPosition');
-        if (scrollPosition !== null) {
-            window.scrollTo(0, scrollPosition);
-            localStorage.removeItem('scrollPosition');
-        }
-    });
-</script>
+        });
+
+</script>                
