@@ -138,7 +138,7 @@
 
                                     @if($product->variations->isNotEmpty())
                                 
-                                    <form class="add-to-cart addToCartForm" action="{{ route('home.show', $product) }}" method="post">
+                                    <form class="add-to-cart addToCartForm" action="{{ route('home.products.show', $product) }}" method="post">
                                         @csrf
                                          <input type="hidden" name="product_id" value="{{ $product->id }}">
                                          <input type="number" name="quantity" value="1" min="1">
